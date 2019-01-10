@@ -77,6 +77,7 @@ namespace VTSAPI.Models
        
             public DbSet<TodoItem> TodoItems { get; internal set; }
             public DbSet<TodoList> TodoLists { get; internal set; }
+            public DbSet<TodoList> ItemList { get; internal set; }
 
 
 
