@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using VTSAPI.Repository;
 using VTSAPI.Models;
 using static VTSAPI.Models.ToDoAPIModel;
-using static VTSAPI.Models.UserModel;
+
 
 namespace VTSAPI
 {
@@ -61,18 +61,55 @@ namespace VTSAPI
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
 
-                var users = new User { Name = "Andrey" };
-                var toDoLists = new TodoList { Name = "Andrey's List", isDefault = true, User = users};
+                var context = serviceScope.ServiceProvider.GetService<ToDoContext>();
 
-                var context = serviceScope.ServiceProvider.GetService<Models.ToDoAPIModel.ToDoContext>();
 
-                context.Users.Add(users);
-                context.SaveChangesAsync();
+            
+            var users = new User[]
+           {
+            new User{FirstMidName="Carson",LastName="Alexander" },
+            new User{FirstMidName="Meredith",LastName="Alonso"},
+            new User{FirstMidName="Arturo",LastName="Anand"},
+            new User{FirstMidName="Gytis",LastName="Barzdukas"},
+            new User{FirstMidName="Yan",LastName="Li"},
+            new User{FirstMidName="Peggy",LastName="Justice"},
+            new User{FirstMidName="Laura",LastName="Norman"},
+            new User{FirstMidName="Nino",LastName="Olivetto"}
+           };
+                foreach (User s in users)
+                {
+                    context.Users.Add(s);
+                }
 
-                context.TodoLists.Add (toDoLists);
-                context.SaveChangesAsync();
+                var Todoitems = new TodoItem[]
+                {
+                  new TodoItem { Name = "Walk a dog", isComplete = false },
+                  new TodoItem { Name = "Buy Airline tickets", isComplete = false },
+                  new TodoItem { Name = "Meeting with Ben", isComplete = false},
+                  new TodoItem { Name = "Wholefoods run", isComplete = false},
+                  new TodoItem { Name = "Gym", isComplete = false},
+                  new TodoItem { Name = "Call Sally", isComplete = false},
+                  new TodoItem { Name = "Make a dinner", isComplete = false},
+                };
+                foreach (TodoItem c in Todoitems)
+                {   
+                    context.TodoItems.Add(c);
+                }
 
-               
+                var todoLists = new TodoList[]
+                {
+                  new TodoList{UserID = 1,  Name = "Andrey's List", isDefault =false},
+                  new TodoList{UserID = 2 , Name = "Andrey's Second List", isDefault =false}
+          
+
+           , };
+
+                foreach (TodoList e in todoLists)
+                {
+                    context.TodoLists.Add(e);
+                }
+
+                context.SaveChanges();
                
             }
         

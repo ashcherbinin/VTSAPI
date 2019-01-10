@@ -16,4 +16,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\UserModel.cs" />
+    <Compile Remove="Controllers\ToDoItems.cs" />
+    <Compile Remove="Controllers\EmptyClass.cs" />
+  </ItemGroup>
 </Project>

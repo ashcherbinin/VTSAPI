@@ -9,7 +9,7 @@ namespace VTSAPI.Controllers
 
     [Route("api/[controller]")]
     [Produces("application/json")]
-
+   
     public class ToDoListController:Controller
     {
        
@@ -21,7 +21,7 @@ namespace VTSAPI.Controllers
             }
 
             [HttpGet()]
-            public async Task<IActionResult> Get()   //([FromQuery] bool descending = false)
+            public async Task <IActionResult> Get()   
             {
                 IEnumerable response = null;
 
@@ -40,21 +40,38 @@ namespace VTSAPI.Controllers
                 }
             }
 
-           [HttpPut()]    
-           public async Task<IActionResult> Put([FromQuery] int userid, string name)   
-           {
-
-            try
-            {    
-                await _repository.addTodoList(userid, name);
-                return Ok("Ok");
-     
-            }
-            catch (Exception e)
+            [HttpDelete()]
+            public async Task<IActionResult> Delete([FromQuery] int userid, int todoListID)
             {
-               return BadRequest(e.Message);
+              try
+                {
+
+                   await _repository.deleteTodoList(userid, todoListID);
+                   return Ok("ok");
+                }
+                catch (Exception e)
+                {
+
+                    return BadRequest(e.Message);
+
+                }
             }
-        }
+
+         
+            [HttpPut()]    
+            public async Task<IActionResult> Put([FromQuery] int userid, string name)   
+            {
+            try
+                {    
+                    await _repository.addTodoList(userid, name);
+                    return Ok("Ok");
+         
+                }
+                catch (Exception e)
+                {
+                   return BadRequest(e.Message);
+                }
+            }
 
     }
 }
