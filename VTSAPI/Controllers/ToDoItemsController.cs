@@ -27,7 +27,6 @@ namespace VTSAPI.Controllers
 
             try
             {
-
                 response = await _repository.getToDoItems(null);
 
                 return Ok(response);
@@ -37,6 +36,41 @@ namespace VTSAPI.Controllers
 
                 return BadRequest(e.Message);
 
+            }
+        }
+
+
+
+        [HttpPut()]
+        public async Task<IActionResult> Put([FromQuery] int userid, string name)
+        {
+            try
+            {
+                await _repository.addTodoList(userid, name);
+                return Ok("Ok");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+
+
+        [HttpDelete()]
+        public async Task<IActionResult> Delete([FromQuery] int itemId)
+        {
+            try
+            {
+                await _repository.deleteTodoItems(itemId);
+                return Ok("Ok");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 

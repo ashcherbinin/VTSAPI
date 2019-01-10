@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using VTSAPI.Models;
+
 using static VTSAPI.Models.ToDoAPIModel;
 
 namespace VTSAPI.Repository
@@ -75,18 +75,33 @@ namespace VTSAPI.Repository
             var result = await _toDoContext.TodoLists.ToListAsync();
                               
 
-       //    var result = (from o in _toDoContext.Users
-            //                join t in _toDoContext.TodoItems on s.TodoItemID equals t.TodoItemID
-
-          //                select new { o.FirstMidName, o.LastName, o.todoLists, t.Name, t.isComplete}).AsNoTracking().ToList();
-
-            //_toDoContext.Students
-            //                             .Include(s => s.Enrollments)
-            //                             .ThenInclude(e => e.Course)
-            //                             .AsNoTracking().ToList();
-
-
+     
+           
             return result;
+        }
+
+
+        public async Task deleteTodoItems (int itemId)
+        {
+            var itemexists = _toDoContext.TodoItems.Where(a => a.TodoItemID == itemId).First();
+           
+            var assigned  = _toDoContext.ItemList.Where(s => s.TodoItemId == itemId).First();
+
+
+
+
+            if (itemexists == null || assigned != null)
+            {
+                throw new Exception();
+            }
+            else
+            {
+
+                _toDoContext.Remove(itemexists);
+                await _toDoContext.SaveChangesAsync();
+            }
+
+
         }
 
 

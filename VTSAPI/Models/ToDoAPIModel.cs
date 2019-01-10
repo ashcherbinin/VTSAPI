@@ -58,6 +58,8 @@ namespace VTSAPI.Models
             public int ItemListID { get; set; }
           
             public int TodoItemId { get; set; }
+            public int TodoItemId2 { get; set; }
+
             public TodoItem todoItems { get; set; }
 
             public int TodoListID { get; set; }
@@ -77,7 +79,7 @@ namespace VTSAPI.Models
        
             public DbSet<TodoItem> TodoItems { get; internal set; }
             public DbSet<TodoList> TodoLists { get; internal set; }
-            public DbSet<TodoList> ItemList { get; internal set; }
+            public DbSet<ItemList> ItemList { get; internal set; }
 
 
 
